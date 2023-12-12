@@ -1,28 +1,4 @@
-const products = [{
-    name: 'Black and Gray Athletic Cotton Socks - 6 Pairs',
-    image: 'images/products/athletic-cotton-socks-6-pairs.jpg',
-    rating: {
-        stars: 4.5,
-        count: 87
-    },
-    price: 1090
-},{
-    name: 'Intermediate Size Basketball',
-    image: 'images/products/intermediate-composite-basketball.jpg',
-    rating: {
-        stars: 4.0,
-        count: 127
-    },
-    price: 2095
-},{
-    name: 'Adults Plain Cotton T-Shirt - 2 Pack',
-    image: 'images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg',
-    rating: {
-        stars: 4.5,
-        count: 56
-    },
-    price: 799
-}];
+
 
 // combined the all product html in one variable to display this on page
 let productsHTML = '';
@@ -48,7 +24,7 @@ products.forEach((product) => {
       </div>
       
       <div class="product-price">
-      $${(product.price/100).toFixed(2)}
+      $${(product.priceCents/100).toFixed(2)}
     </div>
 
     <div class="product-quantity-container">
