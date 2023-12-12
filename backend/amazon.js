@@ -17,14 +17,14 @@ products.forEach((product) => {
 
     <div class="product-rating-container">
       <img class="product-rating-stars"
-        src="images/ratings/rating-${product.rating.stars*10}.png">
+        src="images/ratings/rating-${product.rating.stars * 10}.png">
       <div class="product-rating-count link-primary">
       ${product.rating.count}
       </div>
       </div>
       
       <div class="product-price">
-      $${(product.priceCents/100).toFixed(2)}
+      $${(product.priceCents / 100).toFixed(2)}
     </div>
 
     <div class="product-quantity-container">
@@ -49,7 +49,7 @@ products.forEach((product) => {
       Added
     </div>
 
-    <button class="add-to-cart-button button-primary">
+    <button class="add-to-cart-button button-primary js-add-to-cart" data-product-name="${product.name}">
       Add to Cart
     </button>
   </div>
@@ -59,3 +59,32 @@ products.forEach((product) => {
 
 document.querySelector('.js-all-products-grid')
     .innerHTML = productsHTML;
+// add a eventListiner for add to cart functionality
+document.querySelectorAll('.js-add-to-cart')
+    .forEach((button) => {
+        button.addEventListener('click', () => {
+            const productName = button.dataset.productName;
+
+            // check if a same name product already present on the cart
+            let matchingitem;
+            cart.forEach((item) => {
+                if (productName === item.productName) {
+                    matchingitem = item;
+                }
+            });
+            // if present then increase the quantity by 1
+            if (matchingitem) {
+                matchingitem.quantity = matchingitem.quantity + 1;
+            } else {
+             // else add the new product on the add to cart list   
+                cart.push({
+                    productName: productName,
+                    quantity: 1
+                });
+            };
+            console.log(cart);
+
+        })
+    });
+
+
