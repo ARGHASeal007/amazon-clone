@@ -28,7 +28,7 @@ products.forEach((product) => {
     </div>
 
     <div class="product-quantity-container">
-      <select>
+      <select class="js-quantity-select-${product.id}">
         <option selected value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -49,7 +49,7 @@ products.forEach((product) => {
       Added
     </div>
 
-    <button class="add-to-cart-button button-primary js-add-to-cart" data-product-name="${product.name}">
+    <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${product.id}">
       Add to Cart
     </button>
   </div>
@@ -63,12 +63,17 @@ document.querySelector('.js-all-products-grid')
 document.querySelectorAll('.js-add-to-cart')
     .forEach((button) => {
         button.addEventListener('click', () => {
-            const productName = button.dataset.productName;
+            const productId = button.dataset.productId;
 
-            // check if a same name product already present on the cart
+            //fetch and store the selected value of the product
+            const productSelector = document.querySelector(`.js-quantity-select-${productId}`);
+            const productSelectorVALUE = productSelector.value;
+            console.log(productSelectorVALUE);
+            
+            // check if a same ID product already present on the cart
             let matchingitem;
             cart.forEach((item) => {
-                if (productName === item.productName) {
+                if (productId === item.productId) {
                     matchingitem = item;
                 }
             });
@@ -78,10 +83,18 @@ document.querySelectorAll('.js-add-to-cart')
             } else {
              // else add the new product on the add to cart list   
                 cart.push({
-                    productName: productName,
-                    quantity: 1
+                    productId: productId,
+                    quantity: Number(productSelectorVALUE)
                 });
             };
+            // total the cart quantity
+            let cartQuantity = 0;
+            cart.forEach((item) => {
+              cartQuantity = cartQuantity + item.quantity;
+            });
+            // display the total quantity number on the website 
+            document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
             console.log(cart);
 
         })
