@@ -1,4 +1,5 @@
-
+import { cart } from '../data/carts.js';
+import { products } from '../data/products.js';
 
 // combined the all product html in one variable to display this on page
 let productsHTML = '';

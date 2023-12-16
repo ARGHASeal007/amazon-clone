@@ -19,7 +19,7 @@ cart.forEach((cartItem) => {
         };
 
     });
-    
+
     // put this dynamic html structure in a variable
     checkoutItemsHTML = checkoutItemsHTML + `
 
@@ -37,7 +37,7 @@ cart.forEach((cartItem) => {
                 ${matchingpProduct.name}
                 </div>
                 <div class="product-price">
-                $${matchingpProduct.priceCents / 100}
+                $${(matchingpProduct.priceCents / 100).toFixed(2)}
                 </div>
                 <div class="product-quantity">
                 <span>
