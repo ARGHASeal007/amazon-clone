@@ -23,7 +23,7 @@ cart.forEach((cartItem) => {
     // put this dynamic html structure in a variable
     checkoutItemsHTML = checkoutItemsHTML + `
 
-        <div class="cart-item-container">
+        <div class="cart-item-container js-cart-item-${matchingpProduct.id}">
             <div class="delivery-date">
             Delivery date: Tuesday, June 21
             </div>
@@ -107,13 +107,15 @@ cart.forEach((cartItem) => {
 document.querySelector('.js-checkout-items')
     .innerHTML = checkoutItemsHTML;
 
-
+// make the delete button functionable and then remove the product from the checkout page
 document.querySelectorAll('.js-delete-quantity-link')
     .forEach((link) => {
         link.addEventListener('click', () => {
             const productId = link.dataset.productId;
             removeCart(productId);
             console.log(cart);
-        })
-    })
+            const removeItem = document.querySelector(`.js-cart-item-${productId}`);
+            removeItem.remove();
+        });
+    });
 

@@ -7,6 +7,7 @@ export let cart = [{
     quantity: 3
 }];
 
+// create remove item function
 export function removeCart (productId) {
     const newCart = [];
 
