@@ -1,5 +1,5 @@
 // dynamically import the carts and products data from their js file
-import { cart } from '../data/carts.js';
+import { cart, removeCart } from '../data/carts.js';
 import { products } from '../data/products.js';
 
 let checkoutItemsHTML = '';
@@ -46,7 +46,7 @@ cart.forEach((cartItem) => {
                 <span class="update-quantity-link link-primary">
                     Update
                 </span>
-                <span class="delete-quantity-link link-primary">
+                <span class="delete-quantity-link link-primary js-delete-quantity-link" data-product-id="${matchingpProduct.id}">
                     Delete
                 </span>
                 </div>
@@ -59,7 +59,7 @@ cart.forEach((cartItem) => {
                 <div class="delivery-option">
                 <input type="radio" checked
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${matchingpProduct.id}">
                 <div>
                     <div class="delivery-option-date">
                     Tuesday, June 21
@@ -72,7 +72,7 @@ cart.forEach((cartItem) => {
                 <div class="delivery-option">
                 <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${matchingpProduct.id}">
                 <div>
                     <div class="delivery-option-date">
                     Wednesday, June 15
@@ -85,7 +85,7 @@ cart.forEach((cartItem) => {
                 <div class="delivery-option">
                 <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${matchingpProduct.id}">
                 <div>
                     <div class="delivery-option-date">
                     Monday, June 13
@@ -107,4 +107,13 @@ cart.forEach((cartItem) => {
 document.querySelector('.js-checkout-items')
     .innerHTML = checkoutItemsHTML;
 
+
+document.querySelectorAll('.js-delete-quantity-link')
+    .forEach((link) => {
+        link.addEventListener('click', () => {
+            const productId = link.dataset.productId;
+            removeCart(productId);
+            console.log(cart);
+        })
+    })
 
