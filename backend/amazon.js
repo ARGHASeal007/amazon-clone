@@ -1,4 +1,4 @@
-import { cart } from '../data/carts.js';
+import { cart, saveToStroge } from '../data/carts.js';
 import { products } from '../data/products.js';
 
 // combined the all product html in one variable to display this on page
@@ -102,6 +102,8 @@ document.querySelectorAll('.js-add-to-cart')
           quantity: Number(productSelectorVALUE)
         });
       };
+
+      saveToStroge();
 
       // total the cart quantity
       let cartQuantity = 0;
