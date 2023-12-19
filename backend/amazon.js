@@ -104,11 +104,11 @@ document.querySelectorAll('.js-add-to-cart')
       };
 
       saveToStroge();
-
+      
       // total the cart quantity
       let cartQuantity = 0;
       cart.forEach((item) => {
-        cartQuantity = cartQuantity + item.quantity;
+      cartQuantity = cartQuantity + item.quantity;
       });
 
       // display the total quantity number on the website 

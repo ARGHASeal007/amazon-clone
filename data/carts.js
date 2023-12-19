@@ -9,7 +9,7 @@ if (!cart) {
         productId: '83d4ca15-0f35-48f5-b7a3-1ea210004f2e',
         quantity: 3
     }];
-};
+}
 
 export function saveToStroge () {
     localStorage.setItem('cart', JSON.stringify(cart));
