@@ -1,11 +1,13 @@
-import { cart, saveToStroge } from '../data/carts.js';
-import { products } from '../data/products.js';
+import { cart, saveToStroge } from "../data/carts.js";
+import { products } from "../data/products.js";
 
 // combined the all product html in one variable to display this on page
-let productsHTML = '';
+let productsHTML = "";
 
 products.forEach((product) => {
-  productsHTML = productsHTML + `
+  productsHTML =
+    productsHTML +
+    `
     <div class="product-container">
     <div class="product-image-container">
       <img class="product-image"
@@ -50,7 +52,9 @@ products.forEach((product) => {
       Added
     </div>
 
-    <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${product.id}">
+    <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${
+      product.id
+    }">
       Add to Cart
     </button>
   </div>
@@ -58,65 +62,65 @@ products.forEach((product) => {
 });
 // put all products on the page using innerHTML
 
-document.querySelector('.js-all-products-grid')
-  .innerHTML = productsHTML;
+document.querySelector(".js-all-products-grid").innerHTML = productsHTML;
 // add a eventListiner for add to cart functionality
-document.querySelectorAll('.js-add-to-cart')
-  .forEach((button) => {
-    button.addEventListener('click', () => {
-      const productId = button.dataset.productId;
+document.querySelectorAll(".js-add-to-cart").forEach((button) => {
+  button.addEventListener("click", () => {
+    const productId = button.dataset.productId;
 
-      // Check if the element exists
-      const cartMessageElement = document.querySelector(`.js-add-msg-${productId}`);
+    // Check if the element exists
+    const cartMessageElement = document.querySelector(
+      `.js-add-msg-${productId}`
+    );
 
-      if (cartMessageElement) {
-        // Add the 'js-visible' class to show the message
-        cartMessageElement.classList.add('js-visible');
+    if (cartMessageElement) {
+      // Add the 'js-visible' class to show the message
+      cartMessageElement.classList.add("js-visible");
 
-        // Remove the 'js-visible' class after 2 seconds (2000 milliseconds)
-        setTimeout(() => {
-          cartMessageElement.classList.remove('js-visible');
-        }, 2000);
+      // Remove the 'js-visible' class after 2 seconds (2000 milliseconds)
+      setTimeout(() => {
+        cartMessageElement.classList.remove("js-visible");
+      }, 2000);
+    }
+
+    //fetch and store the selected value of the product
+    const productSelector = document.querySelector(
+      `.js-quantity-select-${productId}`
+    );
+    const productSelectorVALUE = productSelector.value;
+    console.log(productSelectorVALUE);
+
+    // check if a same ID product already present on the cart
+    let matchingitem;
+    cart.forEach((item) => {
+      if (productId === item.productId) {
+        matchingitem = item;
       }
+    });
 
-      //fetch and store the selected value of the product
-      const productSelector = document.querySelector(`.js-quantity-select-${productId}`);
-      const productSelectorVALUE = productSelector.value;
-      console.log(productSelectorVALUE);
-
-      // check if a same ID product already present on the cart
-      let matchingitem;
-      cart.forEach((item) => {
-        if (productId === item.productId) {
-          matchingitem = item;
-        }
+    // if present then increase the quantity by 1
+    if (matchingitem) {
+      matchingitem.quantity = matchingitem.quantity + 1;
+    } else {
+      // else add the new product on the add to cart list
+      cart.push({
+        productId: productId,
+        quantity: Number(productSelectorVALUE),
+        deliveryOption: "1",
       });
+    }
 
-      // if present then increase the quantity by 1
-      if (matchingitem) {
-        matchingitem.quantity = matchingitem.quantity + 1;
-      } else {
-        // else add the new product on the add to cart list   
-        cart.push({
-          productId: productId,
-          quantity: Number(productSelectorVALUE)
-        });
-      };
+    saveToStroge();
 
-      saveToStroge();
-      
-      // total the cart quantity
-      let cartQuantity = 0;
-      cart.forEach((item) => {
+    // total the cart quantity
+    let cartQuantity = 0;
+    cart.forEach((item) => {
       cartQuantity = cartQuantity + item.quantity;
-      });
+    });
 
-      // display the total quantity number on the website 
-      document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+    // display the total quantity number on the website
+    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
 
-      console.log(cart);
-
-    })
+    console.log(cart);
   });
-
-
+});
