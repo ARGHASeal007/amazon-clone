@@ -24,7 +24,7 @@ export function saveToStroge() {
 
 // create remove item function
 export function removeCart(productId) {
-  const newCart = [];
+  let newCart = [];
 
   cart.forEach((cartItem) => {
     if (cartItem.productId !== productId) {
