@@ -3,7 +3,10 @@ import { products } from "../data/products.js";
 
 // combined the all product html in one variable to display this on page
 let productsHTML = "";
-
+let cartQuantity = cart.reduce((acc, eachItem) => {
+  return acc + eachItem.quantity;
+}, 0);
+document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
 products.forEach((product) => {
   productsHTML =
     productsHTML +
@@ -112,13 +115,17 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
 
     saveToStroge();
 
-    // total the cart quantity
-    let cartQuantity = 0;
-    cart.forEach((item) => {
-      cartQuantity = cartQuantity + item.quantity;
-    });
+    // // total the cart quantity
+    let cartQuantity = cart.reduce((acc, eachItem) => {
+      return acc + eachItem.quantity;
+    }, 0);
+    console.log(cartQuantity);
+    // cart.forEach((item) => {
+    //   cartQuantity = cartQuantity + item.quantity;
+    // });
 
     // display the total quantity number on the website
+
     document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
 
     console.log(cart);

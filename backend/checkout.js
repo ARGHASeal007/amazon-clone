@@ -37,43 +37,34 @@ cart.forEach((cartItem) => {
     `
 
     <div class="cart-item-container js-cart-item-${matchingpProduct.id}">
-    <div class="delivery-date">
-    Delivery date: ${dateString}
+  <div class="delivery-date">Delivery date: ${dateString}</div>
+
+  <div class="cart-item-details-grid">
+    <img class="product-image" src="${matchingpProduct.image}" />
+
+    <div class="cart-item-details">
+      <div class="product-name">${matchingpProduct.name}</div>
+      <div class="product-price">
+        $${(matchingpProduct.priceCents / 100).toFixed(2)}
+      </div>
+      <div class="product-quantity">
+        <span>Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+        <span class="update-quantity-link link-primary"> Update </span>
+        <span
+          class="delete-quantity-link link-primary js-delete-quantity-link"
+          data-product-id="${matchingpProduct.id}"
+        >
+          Delete
+        </span>
+      </div>
     </div>
-    
-            <div class="cart-item-details-grid">
-            <img class="product-image"
-            src="${matchingpProduct.image}">
-            
-            <div class="cart-item-details">
-            <div class="product-name">
-            ${matchingpProduct.name}
-            </div>
-            <div class="product-price">
-            $${(matchingpProduct.priceCents / 100).toFixed(2)}
-            </div>
-            <div class="product-quantity">
-            <span>
-            Quantity: <span class="quantity-label">${cartItem.quantity}</span>
-            </span>
-            <span class="update-quantity-link link-primary">
-            Update
-            </span>
-            <span class="delete-quantity-link link-primary js-delete-quantity-link" data-product-id="${
-              matchingpProduct.id
-            }">
-            Delete
-            </span>
-            </div>
-            </div>
-            
-            <div class="delivery-options">
-                <div class="delivery-options-title">
-                Choose a delivery option:
-                </div>
-                ${deliveryOptionHtml(matchingpProduct, cartItem)}
-            </div>
-        </div>
+
+    <div class="delivery-options">
+      <div class="delivery-options-title">Choose a delivery option:</div>
+      ${deliveryOptionHtml(matchingpProduct, cartItem)}
+    </div>
+  </div>
+</div>
              `;
 
   updateCart();
